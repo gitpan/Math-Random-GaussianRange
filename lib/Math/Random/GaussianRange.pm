@@ -12,23 +12,6 @@ use base 'Exporter';
 
 our @EXPORT = 'generate_normal_range';
 
-=head2 generate_normal_range
-
-Given a range, returns a reference to an array of randomly generated numbers
-which are normally distributed i.e. clustered around the mean. The module
-uses a best approximation, values are distributed within 3 standard deviations
-from the perceived mean.
-
-    my $rh = {
-        min   => 0,    # minimum
-        max   => 1000, # maximum
-        n     => 100,  # number of numbers returned (default 100) 
-        round => 0,    # return integers
-    }
-    
-    my $ra = generate_normal_range( $rh );
-
-=cut
 
 sub generate_normal_range {
     my $rh    = shift;
@@ -50,8 +33,8 @@ sub generate_normal_range {
     my $median = median( @range );
     my $sd     = $median/3;
 
-    if ( $median == 0 && $sd == 0 ) {
-        carp "Median and SD are both null.";
+    if ( $median == 0 || $sd == 0 ) {
+        croak "Median and SD are both null.";
     }
 
     my @output = 
@@ -74,3 +57,44 @@ sub generate_normal_range {
 
 
 1;
+
+__END__
+=pod
+
+=head1 NAME
+
+Math::Random::GaussianRange - Given a range, generate a set of random numbers normally distributed.
+
+=head1 VERSION
+
+version 0.003
+
+=head2 generate_normal_range
+
+Given a range, returns a reference to an array of randomly generated numbers
+which are normally distributed i.e. clustered around the mean. The module
+uses a best approximation, values are distributed within 3 standard deviations
+from the perceived mean.
+
+    my $rh = {
+        min   => 0,    # minimum
+        max   => 1000, # maximum
+        n     => 100,  # number of numbers returned (default 100) 
+        round => 0,    # return integers
+    }
+    
+    my $ra = generate_normal_range( $rh );
+
+=head1 AUTHOR
+
+Spiros Denaxas <s.denaxas@gmail.com>
+
+=head1 COPYRIGHT AND LICENSE
+
+This software is copyright (c) 2011 by Spiros Denaxas.
+
+This is free software; you can redistribute it and/or modify it under
+the same terms as the Perl 5 programming language system itself.
+
+=cut
+

@@ -86,6 +86,22 @@ use_ok( 'Math::Random::GaussianRange' );
     
 }
 
+{
+    
+    my $rh = {
+        min   => -100,
+        max   => 100,
+        n     => 100, 
+    };
+
+    throws_ok    {
+        my $ra = generate_normal_range( $rh );
+    } 
+    qr/Median and SD are both null./;
+
+    
+}
+
 
 
 done_testing();
