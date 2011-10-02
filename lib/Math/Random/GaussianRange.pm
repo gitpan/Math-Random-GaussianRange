@@ -16,7 +16,7 @@ our @EXPORT = 'generate_normal_range';
 
 Given a range, returns a reference to an array of randomly generated numbers
 which are normally distributed i.e. clustered around the mean. The module
-uses a best approximation, values are distributed within 4 standard deviations
+uses a best approximation, values are distributed within 3 standard deviations
 from the perceived mean.
 
     my $rh = {
@@ -48,7 +48,7 @@ sub generate_normal_range {
     
     my @range  = ( $min .. $max );
     my $median = median( @range );
-    my $sd     = $median/4;
+    my $sd     = $median/3;
 
     if ( $median == 0 && $sd == 0 ) {
         carp "Median and SD are both null.";
